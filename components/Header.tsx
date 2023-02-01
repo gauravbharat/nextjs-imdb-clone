@@ -1,7 +1,21 @@
+import { imdbLogo } from "@/helpers/constants";
+import Image from "next/image";
+import HeaderIcon from "./HeaderIcon";
+import AboutIcon from "./ui/icons/AboutIcon";
+import HomeIcon from "./ui/icons/HomeIcon";
+import PhoneIcon from "./ui/icons/PhoneIcon";
+import UserIcon from "./ui/icons/UserIcon";
+
 const Header = () => {
   return (
     <header>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <div className="">
+        <HeaderIcon Icon={HomeIcon} title="Home" />
+        <HeaderIcon Icon={UserIcon} title="Account" />
+        <HeaderIcon Icon={PhoneIcon} title="Contact" />
+        <HeaderIcon Icon={AboutIcon} title="About" />
+      </div>
+      <Image src={imdbLogo} alt="IMDB logo" width={100} height={100} />
     </header>
   );
 };
