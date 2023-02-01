@@ -1,9 +1,13 @@
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Results from "@/components/Results";
+import { FeaturedMovie, TopRatedMovie } from "@/helpers/app.model";
+import navbarRequests, { genres } from "@/utils/navbar-requests";
 import Head from "next/head";
 
-export default function Home() {
+const Home = (props: any) => {
+  console.log({ props });
+
   return (
     <>
       <Head>
@@ -14,7 +18,58 @@ export default function Home() {
       </Head>
       <Header />
       <Navbar />
-      <Results />
+
+      {!!props.error && (
+        <div className="p-6 text-red-700">
+          <h1>{props.error}</h1>
+        </div>
+      )}
+
+      {!!props.results && <Results results={props.results} />}
     </>
   );
-}
+};
+
+export const getServerSideProps = async (context: any) => {
+  const genre = context.query.genre ?? genres[0];
+
+  try {
+    const request = await fetch(
+      `https://api.themoviedb.org/3${navbarRequests[genre].url}`
+    );
+
+    console.log({
+      // request,
+      status: request.status,
+      statusText: request.statusText,
+      ok: request.ok,
+    });
+
+    if (request.status !== 200) {
+      throw new Error(request.statusText);
+    }
+
+    const data = await request.json();
+
+    if (!data) {
+      throw new Error("Error getting movie data");
+    }
+
+    return {
+      props: {
+        results: data.results as FeaturedMovie | TopRatedMovie | any,
+      },
+    };
+  } catch (error) {
+    console.log({ error: (error as any)?.message });
+
+    return {
+      props: {
+        error:
+          "Error getting movie data. The server may be down or under routine maintenance. Please try again after some time.",
+      },
+    };
+  }
+};
+
+export default Home;
