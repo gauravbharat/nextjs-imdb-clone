@@ -25,17 +25,20 @@ const Home = (props: any) => {
         </div>
       )}
 
-      {!!props.results && <Results results={props.results} />}
+      {!!props.results && (
+        <Results results={props.results} imageUrl={props.imageUrl} />
+      )}
     </>
   );
 };
 
 export const getServerSideProps = async (context: any) => {
   const genre = context.query.genre ?? genres[0];
+  const imageUrl = process.env.IMDB_IMG_URL;
 
   try {
     const request = await fetch(
-      `https://api.themoviedb.org/3${navbarRequests[genre].url}`
+      `${process.env.IMDB_URL}${navbarRequests[genre].url}`
     );
 
     console.log({
@@ -43,6 +46,7 @@ export const getServerSideProps = async (context: any) => {
       status: request.status,
       statusText: request.statusText,
       ok: request.ok,
+      imageUrl,
     });
 
     if (request.status !== 200) {
@@ -57,7 +61,8 @@ export const getServerSideProps = async (context: any) => {
 
     return {
       props: {
-        results: data.results as FeaturedMovie | TopRatedMovie | any,
+        results: data.results as FeaturedMovie[] | TopRatedMovie[],
+        imageUrl,
       },
     };
   } catch (error) {

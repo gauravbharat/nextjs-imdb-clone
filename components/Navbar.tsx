@@ -1,9 +1,12 @@
 import navbarRequests, { genres } from "@/utils/navbar-requests";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const Navbar = () => {
-  const [selectedGenre, setSelectedGenre] = useState();
+  const { genre } = useRouter().query;
+
+  const [selectedGenre, setSelectedGenre] = useState(genre ?? genres[0]);
 
   return (
     <div className="flex justify-center bg-gray-600 text-gray-200 select-none text-xl lg:text-2xl">
