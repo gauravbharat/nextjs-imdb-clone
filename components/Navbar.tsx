@@ -9,12 +9,12 @@ const Navbar = () => {
   const [selectedGenre, setSelectedGenre] = useState(genre ?? genres[0]);
 
   return (
-    <div className="flex justify-center bg-gray-600 text-gray-200 select-none text-xl lg:text-2xl">
+    <div className="flex justify-center select-none text-xl lg:text-2xl">
       {Object.entries(navbarRequests).map(([key, { title, url }]: any) => (
         <Link key={key} href={{ pathname: "", query: { genre: key } }}>
           <h2
             onClick={() => setSelectedGenre(key)}
-            className={`m-6 cursor-pointer hover:text-white active:text-red-400 ${
+            className={`m-6 cursor-pointer  active:text-red-400 ${
               selectedGenre === key ? "text-red-400" : ""
             }`}
           >

@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import HeaderIcon from "./HeaderIcon";
 import DarkModeSwitch from "./ui/DarkModeSwitch";
 import AboutIcon from "./ui/icons/AboutIcon";
@@ -7,7 +8,7 @@ import HomeIcon from "./ui/icons/HomeIcon";
 const Header = () => {
   return (
     // add select-none to disable selecting text/icon
-    <div className="bg-gray-700 text-gray-200 flex flex-row items-center p-6 select-none justify-between">
+    <div className="flex flex-row items-center p-6 select-none justify-between">
       <div className="flex">
         <Link href="/">
           <HeaderIcon Icon={HomeIcon} title="Home" />
