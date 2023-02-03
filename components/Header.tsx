@@ -1,29 +1,34 @@
-import { imdbLogo } from "@/helpers/constants";
-import Image from "next/image";
+import Link from "next/link";
 import HeaderIcon from "./HeaderIcon";
+import DarkModeSwitch from "./ui/DarkModeSwitch";
 import AboutIcon from "./ui/icons/AboutIcon";
 import HomeIcon from "./ui/icons/HomeIcon";
-import PhoneIcon from "./ui/icons/PhoneIcon";
-import UserIcon from "./ui/icons/UserIcon";
 
 const Header = () => {
   return (
     // add select-none to disable selecting text/icon
-    <div className="bg-gray-700 text-gray-200 flex flex-col items-center p-6 select-none sm:flex-row justify-between">
+    <div className="bg-gray-700 text-gray-200 flex flex-row items-center p-6 select-none justify-between">
       <div className="flex">
-        <HeaderIcon Icon={HomeIcon} title="Home" />
-        <HeaderIcon Icon={UserIcon} title="Account" />
-        <HeaderIcon Icon={PhoneIcon} title="Contact" />
-        <HeaderIcon Icon={AboutIcon} title="About" />
+        <Link href="/">
+          <HeaderIcon Icon={HomeIcon} title="Home" />
+        </Link>
+        {/* <HeaderIcon Icon={UserIcon} title="Account" />
+        <HeaderIcon Icon={PhoneIcon} title="Contact" /> */}
+        <Link href="/about">
+          <HeaderIcon Icon={AboutIcon} title="About" />
+        </Link>
       </div>
-      <Image
-        style={{ borderRadius: "10px" }}
-        src={imdbLogo}
-        alt="IMDB logo"
-        width={100}
-        height={100}
-        className="cursor-pointer active:brightness-110"
-      />
+      <div className="flex items-center space-x-5">
+        <DarkModeSwitch />
+        <Link href="/">
+          <h2 className="text-2xl ">
+            <span className="font-bold bg-amber-500 py-1 px-2 rounded-lg text-black mr-1">
+              IMDb
+            </span>
+            <span className="text-xl hidden sm:inline ">Clone</span>
+          </h2>
+        </Link>
+      </div>
     </div>
   );
 };
