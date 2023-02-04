@@ -21,7 +21,7 @@ const SearchResultPage = (props: any) => {
     <>
       <div className="pt-6 pl-8 select-none text-center">
         <span className="font-bold">{searchResults.total_results}</span> records
-        found for searched text '{props.searchText}'
+        found for searched text &apos;{props.searchText}&apos;
       </div>
       <Results results={searchResults.results} imageUrl={props.imageUrl} />
     </>
