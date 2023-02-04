@@ -28,11 +28,11 @@ export const getServerSideProps = async (context: any) => {
   const genre = context.query.genre ?? genres[0];
   const imageUrl = process.env.IMDB_IMG_URL;
 
-  console.log("RETURN MOCK DATA");
+  // console.log("RETURN MOCK DATA");
 
-  return {
-    props: { results: mockResults, imageUrl },
-  };
+  // return {
+  //   props: { results: mockResults, imageUrl },
+  // };
 
   try {
     const request = await fetch(
